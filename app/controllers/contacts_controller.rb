@@ -9,7 +9,8 @@ class ContactsController < ApplicationController
     if @contact.valid?
       # save data to google drive
       @contact.update_spreadsheet
-      # todo: send message
+      # send message
+      UserMailer.contact_email(@contact).deliver
       flash[:notice] = "Message sent from #{@contact.name}."
       redirect_to root_path
     else
